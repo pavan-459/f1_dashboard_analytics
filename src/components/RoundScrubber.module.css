@@ -1,9 +1,10 @@
 .scrubber {
   position: sticky;
-  top: 0;
+  top: 64px; /* below the app shell's sticky top bar */
   z-index: 5;
-  margin: 0 calc(var(--space-4) * -1) var(--space-5);
-  padding: var(--space-3) var(--space-4) var(--space-2);
+  margin: calc(var(--content-pad, var(--space-4)) * -1)
+    calc(var(--content-pad, var(--space-4)) * -1) var(--space-5);
+  padding: var(--space-3) var(--content-pad, var(--space-4)) var(--space-2);
   background: color-mix(in srgb, var(--color-bg) 88%, transparent);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--color-border);

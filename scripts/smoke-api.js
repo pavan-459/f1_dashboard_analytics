@@ -2,6 +2,7 @@
 // checking the response still has the fields the app reads. ~9 requests, spaced by the client.
 // This is not a load test — never point load at OpenF1.
 // Usage: npm run test:smoke:api [-- <year>]
+import { MULTIVIEWER_BASE_URL } from '../src/data/circuitSource.js';
 import { createClient } from '../src/data/openf1Client.js';
 
 const api = createClient();
@@ -103,6 +104,19 @@ if (latest) {
     ),
   );
 }
+
+// Track outlines come from MultiViewer (linked from OpenF1 meetings).
+await check('multiviewer circuit outline', async () => {
+  const meeting = (await api('meetings', { year })).find((m) => m.circuit_key && !m.is_cancelled);
+  if (!meeting) throw new Error('no meeting with a circuit_key');
+  const circuits = createClient({ baseUrl: MULTIVIEWER_BASE_URL });
+  const info = await circuits(`circuits/${meeting.circuit_key}/${year}`);
+  for (const f of ['x', 'y', 'rotation', 'corners']) {
+    if (!(f in info)) throw new Error(`circuit missing ${f}`);
+  }
+  if (info.x.length < 50) throw new Error(`outline too short (${info.x.length} points)`);
+  return `${meeting.circuit_short_name}: ${info.x.length} points, ${info.corners.length} corners`;
+});
 
 const failed = results.filter((r) => !r.ok);
 console.log(`\n${results.length - failed.length}/${results.length} API smoke checks passed`);

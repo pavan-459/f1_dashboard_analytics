@@ -85,10 +85,14 @@ export default function StandingsChart({ rows, ariaLabel, labelWidth = 76, durat
             .attr('x', 36)
             .attr('y', ROW / 2)
             .attr('dy', '0.35em');
-          g.append('path').attr('class', `bar-start ${styles.barStart}`);
-          g.append('path').attr('class', `bar-gain ${styles.barGain}`);
+          // New rows start as zero-width bars at the baseline, so they grow outwards and the
+          // value label rides the bar tip instead of sliding across the names.
+          const empty = barPath(left, left, barY, BAR, 0);
+          g.append('path').attr('class', `bar-start ${styles.barStart}`).attr('d', empty);
+          g.append('path').attr('class', `bar-gain ${styles.barGain}`).attr('d', empty);
           g.append('text')
             .attr('class', `value ${styles.value}`)
+            .attr('x', left + 6)
             .attr('y', ROW / 2)
             .attr('dy', '0.35em');
           return g;

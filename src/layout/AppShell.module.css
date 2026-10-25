@@ -1,0 +1,276 @@
+.shell {
+  --sidebar-w: 260px;
+  display: grid;
+  grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.shell[data-collapsed] {
+  --sidebar-w: 76px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  background: var(--color-sidebar);
+  border-right: 1px solid var(--color-border);
+  transition: width 0.2s ease;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 64px;
+  padding: 0 var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* Logo: chequered tile with a red kerb underline. */
+.logo {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  background:
+    linear-gradient(to top, var(--color-accent) 0 6px, transparent 6px),
+    conic-gradient(var(--color-text) 25%, transparent 0 50%, var(--color-text) 0 75%, transparent 0)
+      0 0 / 10px 10px,
+    var(--color-surface-2);
+  border: 1px solid var(--color-border);
+}
+
+.brandName {
+  font-size: var(--text-lg);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.drawerClose {
+  display: none;
+}
+
+.nav {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-4) var(--space-2);
+  overflow-y: auto;
+}
+
+.link,
+.collapse {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 48px;
+  padding: 0 var(--space-4);
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.link:hover,
+.collapse:hover {
+  background: var(--color-hover);
+  color: var(--color-text);
+}
+
+.link[aria-current='page'] {
+  position: relative;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+.link[aria-current='page']::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--color-accent);
+}
+
+.collapse {
+  margin: auto var(--space-2) var(--space-2);
+  border-top: 1px solid var(--color-border);
+  border-radius: 0;
+  padding-top: var(--space-2);
+}
+
+.shell[data-collapsed] .label,
+.shell[data-collapsed] .brandName {
+  display: none;
+}
+
+.shell[data-collapsed] .link,
+.shell[data-collapsed] .collapse {
+  justify-content: center;
+  padding: 0;
+}
+
+.main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 64px;
+  padding: 0 var(--space-6);
+  background: color-mix(in srgb, var(--color-sidebar) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.menu {
+  display: none;
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: var(--text-lg);
+  font-weight: 700;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.season {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.season select {
+  min-height: 40px;
+  padding: 0 var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.content {
+  --content-pad: var(--space-6);
+  flex: 1;
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: var(--content-pad);
+}
+
+.footer {
+  padding: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  text-align: center;
+}
+
+.footer a {
+  color: inherit;
+}
+
+/* Phones and small tablets: sidebar becomes an off-canvas drawer. */
+@media (max-width: 900px) {
+  .shell,
+  .shell[data-collapsed] {
+    grid-template-columns: minmax(0, 1fr);
+    --sidebar-w: 280px;
+  }
+
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(var(--sidebar-w), 85vw);
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: var(--shadow);
+  }
+
+  .sidebar[data-open] {
+    transform: none;
+  }
+
+  .shell[data-collapsed] .label,
+  .shell[data-collapsed] .brandName {
+    display: inline;
+  }
+
+  .shell[data-collapsed] .link {
+    justify-content: flex-start;
+    padding: 0 var(--space-4);
+  }
+
+  .collapse {
+    display: none;
+  }
+
+  .drawerClose,
+  .menu {
+    display: inline-grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    margin-left: auto;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .menu {
+    margin: 0 0 0 calc(var(--space-2) * -1);
+  }
+
+  .scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    background: rgb(0 0 0 / 0.5);
+  }
+
+  .topbar {
+    padding: 0 var(--space-4);
+  }
+
+  .content {
+    --content-pad: var(--space-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .seasonLabel {
+    display: none;
+  }
+}

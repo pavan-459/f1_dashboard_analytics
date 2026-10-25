@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 /**
  * Track an element's content width with a ResizeObserver.
@@ -9,6 +9,12 @@ import { useEffect, useState } from 'react';
  */
 export function useResponsiveSvg(ref, fallbackWidth = 640) {
   const [width, setWidth] = useState(fallbackWidth);
+
+  // Measure before the first paint so phones never see a chart drawn at the fallback width.
+  useLayoutEffect(() => {
+    const w = Math.round(ref.current?.clientWidth ?? 0);
+    if (w > 0) setWidth(w);
+  }, [ref]);
 
   useEffect(() => {
     const el = ref.current;

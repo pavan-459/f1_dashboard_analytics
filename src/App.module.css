@@ -1,101 +1,36 @@
-.app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--space-4) var(--space-4) var(--space-8);
-}
-
-.header {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-3);
-  margin-bottom: var(--space-3);
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-/* Logo: a chequered flag tile with a red kerb underline. */
-.logo {
-  width: 40px;
-  height: 40px;
-  flex: none;
-  border-radius: 10px;
-  background:
-    linear-gradient(to top, var(--color-accent) 0 6px, transparent 6px),
-    conic-gradient(var(--color-text) 25%, transparent 0 50%, var(--color-text) 0 75%, transparent 0)
-      0 0 / 12px 12px,
-    var(--color-surface);
-  border: 1px solid var(--color-border);
-}
-
-.title {
-  margin: 0;
-  font-size: var(--text-xl);
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  background: linear-gradient(
-    90deg,
-    var(--color-text),
-    var(--color-text-muted) 60%,
-    var(--color-text)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.tagline {
-  margin: 2px 0 0;
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-}
-
-.headerControls {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-.season {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-}
-
-.season select {
-  min-height: var(--tap);
-  padding: 0 var(--space-3);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: 999px;
-  color: var(--color-text);
-  font-weight: 700;
-}
-
 .grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
 }
 
-@media (min-width: 960px) {
+@media (min-width: 1100px) {
   .grid {
     grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
     align-items: start;
   }
 }
 
+.pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: start;
+}
+
+@media (min-width: 1100px) {
+  .pair {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+}
+
 .wide,
 .side {
   min-width: 0;
+}
+
+.full {
+  grid-column: 1 / -1;
 }
 
 .loading,
@@ -168,15 +103,4 @@
   100% {
     background: var(--color-grid);
   }
-}
-
-.footer {
-  margin-top: var(--space-8);
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
-  text-align: center;
-}
-
-.footer a {
-  color: inherit;
 }

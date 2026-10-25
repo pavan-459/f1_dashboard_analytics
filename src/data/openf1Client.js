@@ -12,7 +12,7 @@ const defaultSleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  * @param {string} endpoint
  * @param {Record<string, string | number | Array<string | number> | undefined>} [params]
  */
-export function buildUrl(endpoint, params = {}) {
+export function buildUrl(endpoint, params = {}, baseUrl = OPENF1_BASE_URL) {
   const parts = [];
   for (const [key, value] of Object.entries(params)) {
     if (value === undefined) continue;
@@ -22,19 +22,20 @@ export function buildUrl(endpoint, params = {}) {
       parts.push(`${encodeURIComponent(name)}${op}${encodeURIComponent(String(v))}`);
     }
   }
-  return `${OPENF1_BASE_URL}/${endpoint}${parts.length ? `?${parts.join('&')}` : ''}`;
+  return `${baseUrl}/${endpoint}${parts.length ? `?${parts.join('&')}` : ''}`;
 }
 
 /**
- * A rate-limited, caching OpenF1 fetcher. Requests are queued one at a time with a gap,
+ * A rate-limited, caching JSON fetcher (OpenF1 by default). Requests are queued one at a time with a gap,
  * retried on 429, and cached by URL for the client's lifetime (failures are not cached).
- * @param {{ fetchImpl?: typeof fetch, sleep?: (ms: number) => Promise<void>, gapMs?: number }} [options]
+ * @param {{ fetchImpl?: typeof fetch, sleep?: (ms: number) => Promise<void>, gapMs?: number, baseUrl?: string }} [options]
  * @returns {(endpoint: string, params?: Parameters<typeof buildUrl>[1]) => Promise<object[]>}
  */
 export function createClient({
   fetchImpl = (...args) => fetch(...args),
   sleep = defaultSleep,
   gapMs = MIN_GAP_MS,
+  baseUrl = OPENF1_BASE_URL,
 } = {}) {
   const cache = new Map();
   let queue = Promise.resolve();
@@ -55,7 +56,7 @@ export function createClient({
   }
 
   return function fetchOpenF1(endpoint, params = {}) {
-    const url = buildUrl(endpoint, params);
+    const url = buildUrl(endpoint, params, baseUrl);
     if (cache.has(url)) return cache.get(url);
     const result = queue.then(() => request(url));
     queue = result.catch(() => {}).then(() => sleep(gapMs));

@@ -1,0 +1,123 @@
+.icon {
+  flex: none;
+  overflow: visible;
+}
+
+.stroke {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Accent pieces pick up the F1 red when the icon is active or hovered. */
+.redline,
+.raceday,
+.star,
+.play,
+.arrow {
+  transition: fill 0.2s ease;
+}
+
+:global(.is-active) .redline,
+:global(.is-active) .raceday,
+:global(.is-active) .star,
+:global(.is-active) .play,
+:global(.is-active) .arrow {
+  fill: var(--color-accent);
+}
+
+/* Motion on hover/active (disabled for reduced motion by the global rule in tokens.css). */
+.needle {
+  transform-origin: 12px 13px;
+  transform: rotate(-60deg);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:global(.nav-link:hover) .needle,
+:global(.is-active) .needle {
+  transform: rotate(0deg);
+}
+
+.trace {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 0;
+}
+
+:global(.nav-link:hover) .trace {
+  animation: trace 1.2s ease-in-out;
+}
+
+@keyframes trace {
+  from {
+    stroke-dashoffset: 60;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.flag {
+  transform-origin: 6px 8px;
+}
+
+:global(.nav-link:hover) .flag {
+  animation: wave 0.9s ease-in-out;
+}
+
+@keyframes wave {
+  25% {
+    transform: skewY(-6deg) scaleX(0.94);
+  }
+  75% {
+    transform: skewY(5deg) scaleX(0.97);
+  }
+}
+
+.rim,
+.hub,
+.spokes,
+.shift {
+  transform-origin: 12px 12px;
+  transition: transform 0.5s ease;
+}
+
+:global(.nav-link:hover) .rim,
+:global(.nav-link:hover) .hub,
+:global(.nav-link:hover) .spokes,
+:global(.nav-link:hover) .shift {
+  transform: rotate(-25deg);
+}
+
+.star {
+  transform-origin: 12px 6px;
+  transition:
+    transform 0.4s ease,
+    fill 0.2s ease;
+}
+
+:global(.nav-link:hover) .star {
+  transform: scale(1.25) rotate(36deg);
+}
+
+.loop {
+  transform-origin: 12px 12px;
+}
+
+:global(.nav-link:hover) .loop,
+:global(.nav-link:hover) .arrow {
+  animation: spin 0.8s ease-in-out;
+  transform-origin: 12px 12px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}

@@ -1,0 +1,60 @@
+.wrap {
+  position: relative;
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      color-mix(in srgb, var(--color-accent) 7%, transparent),
+      transparent 70%
+    ),
+    var(--color-surface-2);
+}
+
+.wrap[data-empty]::after {
+  content: '';
+  position: absolute;
+  inset: 30% 35%;
+  border: 3px dashed var(--color-grid);
+  border-radius: 40% 60% 55% 45%;
+}
+
+.map {
+  display: block;
+  max-width: 100%;
+}
+
+.asphalt {
+  fill: none;
+  stroke: var(--track-asphalt);
+  stroke-width: 9;
+  stroke-linejoin: round;
+}
+
+.racingLine {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}
+
+.start rect {
+  fill: #fff;
+}
+
+.start .check {
+  fill: #111;
+}
+
+.corner circle {
+  fill: var(--color-surface);
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+}
+
+.corner text {
+  fill: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  font-weight: 600;
+  text-anchor: middle;
+}
