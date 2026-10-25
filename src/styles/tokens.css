@@ -1,0 +1,184 @@
+:root {
+  color-scheme: light;
+
+  /* Surfaces + text */
+  --color-bg: #f2f2f5;
+  --color-surface: #ffffff;
+  --color-surface-2: #f7f7f9;
+  --color-tooltip: #ffffff;
+  --color-hover: rgb(21 21 30 / 0.05);
+  --color-text: #15151e;
+  --color-text-muted: #5b5b6b;
+  --color-border: #dcdce3;
+  --color-grid: #ececf1;
+  --color-accent: #dc2626;
+  --color-series-default: #8a8a99;
+  --shadow: 0 6px 24px rgb(21 21 30 / 0.12);
+  --color-card: #ffffff;
+  --color-card-hover-border: rgb(220 38 38 / 0.45);
+
+  /* Chart series — validated categorical slots (light surface #ffffff) */
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-5: #e87ba4;
+
+  /* Timing-screen sector colours: personal best, overall best, slower */
+  --timing-purple: #8f3fd9;
+  --timing-green: #149c4a;
+  --timing-yellow: #c99400;
+  --status-up: #149c4a;
+  --status-down: #d4342c;
+
+  /* Kerb stripe motif */
+  --kerb-red: #e10600;
+  --kerb-white: #ffffff;
+
+  /* Team colours (fallback when OpenF1 has no team_colour) */
+  --team-red-bull-racing: #3671c6;
+  --team-ferrari: #e8002d;
+  --team-mclaren: #ff8000;
+  --team-mercedes: #27f4d2;
+  --team-aston-martin: #229971;
+  --team-alpine: #0093cc;
+  --team-williams: #64c4ff;
+  --team-rb: #6692ff;
+  --team-kick-sauber: #52e252;
+  --team-haas-f1-team: #b6babd;
+
+  /* Tyre compounds */
+  --compound-soft: #da291c;
+  --compound-medium: #ffd12e;
+  --compound-hard: #a3a39b;
+  --compound-inter: #43b02a;
+  --compound-wet: #0067ad;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Type */
+  --font-sans: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.75rem;
+  --text-hero: clamp(2.5rem, 9vw, 3.5rem);
+
+  --radius: 8px;
+  --radius-lg: 14px;
+  --tap: 44px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --color-bg: #030712;
+    --color-surface: #0d1320;
+    --color-surface-2: #131b2b;
+    --color-tooltip: #111827;
+    --color-hover: rgb(255 255 255 / 0.05);
+    --color-text: #f9fafb;
+    --color-text-muted: #9ca3af;
+    --color-border: #1f2937;
+    --color-grid: #172030;
+    --color-series-default: #6b7280;
+    --shadow: 0 8px 28px rgb(0 0 0 / 0.5);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-5: #d55181;
+    --timing-purple: #b36bff;
+    --timing-green: #2fd36b;
+    --timing-yellow: #f2c230;
+    --status-up: #2fd36b;
+    --status-down: #ff5a4f;
+    --kerb-white: #e8e8ee;
+    --color-accent: #ef4444;
+    --color-card: rgb(17 24 39 / 0.6);
+    --color-card-hover-border: rgb(220 38 38 / 0.5);
+    --compound-hard: #d8d8d2;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-bg: #030712;
+  --color-surface: #0d1320;
+  --color-surface-2: #131b2b;
+  --color-tooltip: #111827;
+  --color-hover: rgb(255 255 255 / 0.05);
+  --color-text: #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-border: #1f2937;
+  --color-grid: #172030;
+  --color-series-default: #6b7280;
+  --shadow: 0 8px 28px rgb(0 0 0 / 0.5);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-5: #d55181;
+  --timing-purple: #b36bff;
+  --timing-green: #2fd36b;
+  --timing-yellow: #f2c230;
+  --status-up: #2fd36b;
+  --status-down: #ff5a4f;
+  --kerb-white: #e8e8ee;
+  --color-accent: #ef4444;
+  --color-card: rgb(17 24 39 / 0.6);
+  --color-card-hover-border: rgb(220 38 38 / 0.5);
+  --compound-hard: #d8d8d2;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(900px 480px at 85% -10%, rgb(220 38 38 / 0.14), transparent 70%),
+    radial-gradient(700px 420px at -10% 10%, rgb(59 130 246 / 0.08), transparent 70%),
+    var(--color-bg);
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.4;
+  overflow-x: hidden;
+}
+
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

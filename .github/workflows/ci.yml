@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1' # Mondays: catch OpenF1 API changes after race weekends
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - name: Unit tests (Jasmine + coverage gate)
+        run: npm run test:unit:coverage
+      - name: Component and integration tests (Vitest)
+        run: npx vitest run --coverage
+      - run: npm run build
+      - name: Smoke test the production build
+        run: npm run test:smoke:app
+      - name: Load test the production build
+        run: npm run test:load -- --connections 50 --duration 5
+
+  api-smoke:
+    # Live third-party API: informational, and never a load test.
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Smoke test OpenF1 endpoints
+        run: npm run test:smoke:api

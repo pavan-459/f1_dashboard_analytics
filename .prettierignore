@@ -1,0 +1,5 @@
+fixtures/sessions
+*.md
+package-lock.json
+coverage
+dist

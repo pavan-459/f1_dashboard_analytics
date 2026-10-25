@@ -1,0 +1,93 @@
+.wrap {
+  position: relative;
+}
+
+.chart {
+  display: block;
+  max-width: 100%;
+  overflow: visible;
+  touch-action: pan-y;
+}
+
+.axis {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.axis :global(.domain) {
+  stroke: var(--color-border);
+}
+
+.grid :global(.tick line) {
+  stroke: var(--color-grid);
+}
+
+.line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.dot {
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+
+.endLabel {
+  fill: var(--color-text);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.now {
+  stroke: var(--color-accent);
+  stroke-width: 1;
+}
+
+.cross {
+  stroke: var(--color-text-muted);
+  stroke-width: 1;
+  pointer-events: none;
+}
+
+.overlay {
+  fill: transparent;
+  cursor: pointer;
+}
+
+.tip {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  transform: translate(-50%, -100%);
+  display: grid;
+  gap: 2px;
+  min-width: 140px;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-tooltip);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-size: var(--text-xs);
+  pointer-events: none;
+}
+
+.tipRow {
+  display: grid;
+  grid-template-columns: 10px 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tipRow i {
+  width: 10px;
+  height: 3px;
+  border-radius: 2px;
+}
+
+.tipRow b {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}

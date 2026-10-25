@@ -1,0 +1,82 @@
+.verdict {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.list {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+  font-weight: 600;
+}
+
+.name i {
+  width: 4px;
+  height: 16px;
+  flex: none;
+  border-radius: 2px;
+}
+
+.figure {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.meter {
+  height: 8px;
+  background: color-mix(in srgb, var(--timing-yellow) 18%, transparent);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.meter span {
+  display: block;
+  height: 100%;
+  background: var(--timing-yellow);
+  border-radius: 0 4px 4px 0;
+  transition: width 0.4s ease;
+}
+
+.meter[data-danger] {
+  background: color-mix(in srgb, var(--status-down) 18%, transparent);
+}
+
+.meter[data-danger] span {
+  background: var(--status-down);
+}
+
+.note,
+.out,
+.footnote {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}
+
+.out {
+  margin-top: var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.footnote {
+  margin-top: var(--space-3);
+  font-style: italic;
+}
